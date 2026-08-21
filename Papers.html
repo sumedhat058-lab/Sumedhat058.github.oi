@@ -1,3 +1,83 @@
-<!DOCTYPE html><html lang="si"><head><title>Past Papers - A/L Help</title><link rel="stylesheet" href="style.css"></head>
-<body><header style="padding:20px;"><a href="index.html">← ආපහු Home</a><h1>📄 Past Papers</h1></header>
-<div class="container"><h2>වැඩ කරගෙන යනවා... ඉක්මනට Papers 88 එනවා</h2></div></body></html>
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Papers - A/L Help</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+ .sub-header { background:#1e293b; padding:15px; display:flex; align-items:center; gap:15px; position:sticky; top:0; }
+ .sub-header a { font-size:24px; }
+   #searchInput { width:90%; max-width:600px; padding:12px; margin:20px auto; display:block; border-radius:8px; border:1px solid #334155; background:#1e293b; color:white; font-size:16px; }
+ .filters { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:20px; }
+ .filter-btn { background:#334155; color:white; border:none; padding:8px 15px; border-radius:20px; cursor:pointer; font-size:14px; }
+ .filter-btn.active { background:#2563eb; }
+ .subject-card { background:#1e293b; padding:15px; margin:10px 0; border-radius:10px; text-align:left; display:flex; justify-content:space-between; align-items:center; }
+ .subject-card h3 { margin:0; font-size:18px; }
+ .subject-card p { margin:5px 0; color:#94a3b8; }
+ .tags span { background:#334155; padding:3px 8px; border-radius:5px; font-size:12px; margin-right:5px; }
+ .download-btn { background:#16a34a; color:white; padding:8px 15px; border-radius:8px; text-decoration:none; font-weight:bold; }
+ .download-btn:hover { background:#15803d; }
+  </style>
+</head>
+<body>
+  <header class="sub-header">
+    <a href="index.html">←</a>
+    <h1>📄 Past Papers</h1>
+  </header>
+
+  <div class="container">
+    <input type="text" id="searchInput" onkeyup="searchSubject()" placeholder="🔍 විෂය හොයන්න... උදා: Physics, භෞතික">
+
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterCategory('all')">සියල්ල</button>
+      <button class="filter-btn" onclick="filterCategory('Science')">Science</button>
+      <button class="filter-btn" onclick="filterCategory('Commerce')">Commerce</button>
+      <button class="filter-btn" onclick="filterCategory('Arts')">Arts</button>
+      <button class="filter-btn" onclick="filterCategory('Technology')">Technology</button>
+      <button class="filter-btn" onclick="filterCategory('Languages')">Languages</button>
+    </div>
+
+    <p>මුළු විෂයන්: <span id="subjectCount">2</span></p>
+
+    <div id="subjectList">
+      <div class="subject-card" data-category="Commerce">
+        <div>
+          <h3>Accounting</h3>
+          <p>ගිණුම්කරණය</p>
+          <div class="tags"><span>S</span><span>T</span><span>E</span><span class="category">Commerce</span></div>
+        </div>
+        <a href="#" class="download-btn">Download</a>
+      </div>
+
+      <div class="subject-card" data-category="Technology">
+        <div>
+          <h3>Agricultural Science</h3>
+          <p>කෘෂි විද්‍යාව</p>
+          <div class="tags"><span>S</span><span>T</span><span>E</span><span class="category">Bio/Tech</span></div>
+        </div>
+        <a href="#" class="download-btn">Download</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+function searchSubject() {
+  let input = document.getElementById('searchInput').value.toLowerCase();
+  let cards = document.getElementsByClassName('subject-card');
+  let count = 0;
+  for (let i = 0; i < cards.length; i++) {
+    let txt = cards[i].innerText.toLowerCase();
+    if (txt.includes(input)) { cards[i].style.display = ""; count++; }
+    else { cards[i].style.display = "none"; }
+  }
+  document.getElementById('subjectCount').innerText = count;
+}
+function filterCategory(cat) {
+  let cards = document.getElementsByClassName('subject-card');
+  let buttons = document.getElementsByClassName('filter-btn');
+  for(let b of buttons){ b.classList.remove('active'); }
+  event.target.classList.add('active');
+
+  let count = 0;
+  for
